@@ -27,7 +27,7 @@ exports.userSignup = async (req,res)=>{
 
 
     })
-    let token = jwt.sign({email,id:newUser._id},process.env.SECRET_KEY)
+    let token = jwt.sign({email,id:newUser._id},"swapnil")
     req.user = newUser
     res.json({user:newUser,token})
 }
@@ -40,7 +40,7 @@ exports.userlogin = async (req,res)=>{
     }
     let existUser = await user.findOne({email}) 
     if(existUser && await bcrypt.compare(password,existUser.password)){
-        let token = jwt.sign({email,id:existUser._id},process.env.SECRET_KEY)
+        let token = jwt.sign({email,id:existUser._id},"swapnil")
 
 
         return res.status(200).json({token,user:existUser})
